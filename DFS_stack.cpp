@@ -10,46 +10,41 @@
 class Node{
 public: 
 	//add field which you need
-	int myNodeNumber; 
 	vector<int> neighbors; 
 	bool visited; 
-	Node(int _myNodeNumber):myNodeNumber(_myNodeNumber), visited(false){ 
-	}
+	Node():visited(false){}
+}; 
+
+
+
+void DFS(int start, Node* nodes){
+    stack<int> nextVisits; 
+    nextVisits.push(start); 
+	nodes[start].visited = true; 
+
+    while(!nextVisits.empty()){
+        int here = nextVisits.top(); 
+        nextVisits.pop(); 
+
+        for(int i = 0; i < nodes[here].neighbors.size(); i++){
+            int next = nodes[here].neighbors.at(i); 
+            if(nodes[next].visited == false){
+                nextVisits.push(next); 
+                nodes[next].visited = true; 
+            }
+        }
+    }
 }
 
-
-void DFS(int start, Node* graphs){
-	stack <int> nextVisits; 
-	nextVisits.push(start); 
-	graphs[start].visited = true; 
-
-	while(!nextvisits.empty()){
-		Node* here = graphs[nextVisits.top()]; 
-		nextVisits.pop(); 
-	
-		for(int i = 0; i < here->neighbors.size(); i++){
-			int next = here->neighbors.at(i); 
-			if(graphs[next]->visited == false){
-				nextVisits.push(next); 
-				graphs[next]->visited = true; 
-			}
-		}
-	}
-
-}
 
 int main(){
 	//N = number of Node  
-	//Initialization graphs
-	Node* graphs[N]; 
-	for(int i = 0; i < N; i++){
-		graphs = new Node(i); 
-		//add Edge information
-	}
+	Node* nodes[N + 1]; 
+	//intialization edge information 
 
 	//DFS all
 	//만약 connected graph가 아닌 경우를 대비해 visited가 아니라면 해당 node를 시작점으로 방문해야함.
-	for(int i = 0; i < N; i++){
+	for(int i = 1; i < N + 1; i++){
 		if(graphs[N]->visited == false)
 			DFS(i, graphs); 
 	}
